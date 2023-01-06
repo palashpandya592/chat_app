@@ -1,0 +1,122 @@
+import 'package:chatting_app/bottom/bloc/bottom_bloc.dart';
+import 'package:chatting_app/chat/chat_page.dart';
+import 'package:chatting_app/contact/contact_page.dart';
+import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/profile/profile_page.dart';
+import 'package:chatting_app/utilities/app_assets.dart';
+import 'package:chatting_app/utilities/app_colors.dart';
+import 'package:chatting_app/utilities/app_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class BottomPage extends StatelessWidget {
+  final AppUser authenticatedUser;
+
+  const BottomPage({Key? key, required this.authenticatedUser})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => BottomBloc(),
+      child: BottomView(authenticatedUser: authenticatedUser),
+    );
+  }
+}
+
+class BottomView extends StatefulWidget {
+  final AppUser authenticatedUser;
+
+  const BottomView({Key? key, required this.authenticatedUser})
+      : super(key: key);
+
+  @override
+  State<BottomView> createState() => _BottomViewState();
+}
+
+class _BottomViewState extends State<BottomView> {
+  int selectedItem = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(AppStrings.chattingApp),
+      ),
+      body: BlocBuilder<BottomBloc, BottomState>(
+        builder: (context, state) {
+          if (state is BottomContact) {
+            return ContactPage();
+          } else if (state is BottomChat) {
+            return ChatPage();
+          } else {
+            return ProfilePage(authenticatedUser: widget.authenticatedUser);
+          }
+        },
+      ),
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          color: AppColors.primary.withOpacity(.2),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: selectedItem,
+          onTap: _onBottomNavTapped,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          unselectedItemColor: AppColors.grey,
+          selectedItemColor: AppColors.primary,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            navigationbarItem(pngIcon: Assets.contactLogo, index: 0),
+            navigationbarItem(pngIcon: Assets.chatLogo, index: 1),
+            navigationbarItem(pngIcon: Assets.profileLogo, index: 2)
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _onBottomNavTapped(int value) {
+    if (value == 0) {
+      BlocProvider.of<BottomBloc>(context).add(BottomContactTapped());
+    } else if (value == 1) {
+      BlocProvider.of<BottomBloc>(context).add(BottomChatTapped());
+    } else {
+      BlocProvider.of<BottomBloc>(context).add(BottomProfileTapped());
+    }
+    setState(() => selectedItem = value);
+  }
+
+  BottomNavigationBarItem navigationbarItem(
+      {required String pngIcon, required int index}) {
+    return BottomNavigationBarItem(
+      icon: Column(
+        children: [
+          Image.asset(pngIcon,
+              height: 25,
+              fit: BoxFit.cover,
+              color: index == selectedItem
+                  ? AppColors.pinkAccent
+                  : AppColors.grey),
+          SizedBox(height: 5),
+          Container(
+              height: 8,
+              width: 8,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: index == selectedItem
+                      ? AppColors.primary
+                      : Colors.transparent))
+        ],
+      ),
+      label: '',
+    );
+  }
+}

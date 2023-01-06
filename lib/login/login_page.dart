@@ -1,0 +1,70 @@
+import 'package:chatting_app/login/bloc/login_bloc.dart';
+import 'package:chatting_app/utilities/app_assets.dart';
+import 'package:chatting_app/utilities/app_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(AppStrings.loginPage),
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 30),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Lottie.asset(Assets.chatLottie),
+              SizedBox(height: 50),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<LoginBloc>(context)
+                        .add(LoginWithGooglePressed());
+                  },
+                  child: Container(
+                    height: 48,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey.withOpacity(.1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 25),
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Assets.googleLogo, height: 30),
+                        SizedBox(width: 15),
+                        Text(
+                          AppStrings.signInWithGoogle,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
