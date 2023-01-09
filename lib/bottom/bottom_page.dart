@@ -47,7 +47,7 @@ class _BottomViewState extends State<BottomView> {
       body: BlocBuilder<BottomBloc, BottomState>(
         builder: (context, state) {
           if (state is BottomContact) {
-            return ContactPage();
+            return ContactPage(authenticatedUser: widget.authenticatedUser);
           } else if (state is BottomChat) {
             return ChatPage();
           } else {

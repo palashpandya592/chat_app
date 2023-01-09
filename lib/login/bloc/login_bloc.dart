@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:chatting_app/model/app_user_model.dart';
 import 'package:chatting_app/repository/login_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';
-
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {

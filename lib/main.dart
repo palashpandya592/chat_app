@@ -1,7 +1,7 @@
 import 'package:chatting_app/firebase_options.dart';
 import 'package:chatting_app/login/bloc/login_bloc.dart';
 import 'package:chatting_app/login/login_page.dart';
-import 'package:chatting_app/provider/login_repository.dart';
+import 'package:chatting_app/provider/login_provider.dart';
 import 'package:chatting_app/registration/registration_page.dart';
 import 'package:chatting_app/repository/login_repository.dart';
 import 'package:chatting_app/utilities/app_strings.dart';

@@ -1,5 +1,5 @@
 import 'package:chatting_app/model/app_user_model.dart';
-import 'package:chatting_app/provider/login_repository.dart';
+import 'package:chatting_app/provider/login_provider.dart';
 
 class LoginRepository {
   LoginRepository({required this.loginFirebaseProvider});

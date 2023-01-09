@@ -7,5 +7,10 @@ class AppStrings {
   static const loginPage = "Login Page";
   static const signInWithGoogle = "Sign In With Google";
 
+  // Profile Page
+  static const logOut = "Log Out";
 
+  // Contact Page
+  static const allContactList = "All Contact List";
+  static const noUserFound = "No User Found";
 }
