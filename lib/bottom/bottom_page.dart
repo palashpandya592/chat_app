@@ -49,7 +49,7 @@ class _BottomViewState extends State<BottomView> {
           if (state is BottomContact) {
             return ContactPage(authenticatedUser: widget.authenticatedUser);
           } else if (state is BottomChat) {
-            return ChatPage();
+            return ChatPage(authenticatedUser: widget.authenticatedUser);
           } else {
             return ProfilePage(authenticatedUser: widget.authenticatedUser);
           }

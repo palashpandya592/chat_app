@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: appTheme,
       debugShowCheckedModeBanner: false,
-      title: '${AppStrings.chattingApp} Demo',
+      title: AppStrings.chattingApp,
       home: BlocProvider(
         create: (context) => LoginBloc(
           loginRepository: LoginRepository(

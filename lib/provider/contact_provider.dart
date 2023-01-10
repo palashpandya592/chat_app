@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ContactFirebaseProvider {
+class ContactProvider {
   final FirebaseFirestore firestore;
 
-  ContactFirebaseProvider({required this.firestore});
+  ContactProvider({required this.firestore});
 
   Future<List<Map<String, dynamic>>> getContacts({
     required String loginUID,

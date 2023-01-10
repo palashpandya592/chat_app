@@ -11,6 +11,10 @@ class AppStrings {
   static const logOut = "Log Out";
 
   // Contact Page
-  static const allContactList = "All Contact List";
+  static const allContactList = "Contact List";
   static const noUserFound = "No User Found";
+  static const unableToLoadContacts = "Unable to load contacts";
+
+  // Chat Page
+  static const chatPage = "Chat Page";
 }

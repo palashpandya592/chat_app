@@ -1,17 +1,27 @@
+import 'package:chatting_app/chat/bloc/chat_bloc.dart';
+import 'package:chatting_app/chat/bloc/chat_event.dart';
+import 'package:chatting_app/chat/chat_view.dart';
+import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/provider/chat_provider.dart';
+import 'package:chatting_app/repository/chat_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({Key? key}) : super(key: key);
+class ChatPage extends StatelessWidget {
+  final AppUser authenticatedUser;
 
-  @override
-  State<ChatPage> createState() => _ChatPageState();
-}
+  ChatPage({Key? key, required this.authenticatedUser}) : super(key: key);
 
-class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text('Chat Page')),
+    return BlocProvider(
+      create: (context) => ChatBloc(
+        ChatRepository(
+          chatProvider: ChatProvider(firestore: FirebaseFirestore.instance),
+        ),
+      )..add(ChatRequested(loginUID: authenticatedUser.uid)),
+      child: ChatView(),
     );
   }
 }
