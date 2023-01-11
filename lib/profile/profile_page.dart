@@ -1,13 +1,13 @@
 // ignore_for_file: deprecated_member_use
 import 'package:chatting_app/login/bloc/login_bloc.dart';
-import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/utilities/app_colors.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
-  final AppUser authenticatedUser;
+  final UserModel authenticatedUser;
 
   const ProfilePage({Key? key, required this.authenticatedUser})
       : super(key: key);

@@ -1,28 +1,28 @@
 import 'dart:convert';
 
-import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/model/user_model.dart';
 import 'package:equatable/equatable.dart';
 
-class Conversation extends Equatable {
+class ConversationModel extends Equatable {
   final String? id;
-  final AppUser creator;
-  final AppUser receiver;
+  final UserModel creator;
+  final UserModel receiver;
   final List<String> members;
 
-  Conversation({
+  ConversationModel({
     this.id,
     required this.creator,
     required this.receiver,
     required this.members,
   });
 
-  Conversation copyWith({
+  ConversationModel copyWith({
     String? id,
-    AppUser? creator,
-    AppUser? receiver,
+    UserModel? creator,
+    UserModel? receiver,
     List<String>? members,
   }) {
-    return Conversation(
+    return ConversationModel(
       id: id ?? this.id,
       creator: creator ?? this.creator,
       receiver: receiver ?? this.receiver,
@@ -39,19 +39,19 @@ class Conversation extends Equatable {
     };
   }
 
-  factory Conversation.fromMap(Map<String, dynamic> map) {
-    return Conversation(
+  factory ConversationModel.fromMap(Map<String, dynamic> map) {
+    return ConversationModel(
       id: map['id']?.toString(),
-      creator: AppUser.fromMap(map['creator'] as Map<String, dynamic>),
-      receiver: AppUser.fromMap(map['receiver'] as Map<String, dynamic>),
+      creator: UserModel.fromMap(map['creator'] as Map<String, dynamic>),
+      receiver: UserModel.fromMap(map['receiver'] as Map<String, dynamic>),
       members: List<String>.from(map['members'] as List<dynamic>),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Conversation.fromJson(String source) =>
-      Conversation.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ConversationModel.fromJson(String source) =>
+      ConversationModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {

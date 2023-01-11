@@ -1,16 +1,16 @@
-import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/provider/login_provider.dart';
 
 class LoginRepository {
-  LoginRepository({required this.loginFirebaseProvider});
+  final LoginProvider loginProvider;
 
-  final LoginFirebaseProvider loginFirebaseProvider;
+  LoginRepository({required this.loginProvider});
 
-  Future<AppUser?> loginWithGoogle() async {
-    final firebaseUser = await loginFirebaseProvider.loginWithGoogle();
+  Future<UserModel?> loginWithGoogle() async {
+    final firebaseUser = await loginProvider.loginWithGoogle();
     return firebaseUser == null
         ? null
-        : AppUser(
+        : UserModel(
             uid: firebaseUser.uid,
             displayName: firebaseUser.displayName ?? '',
             email: firebaseUser.email ?? '',
@@ -19,17 +19,17 @@ class LoginRepository {
   }
 
   Stream<bool> isLoggedIn() {
-    final streamOfUser = loginFirebaseProvider.getLoggedInUserStates();
+    final streamOfUser = loginProvider.getLoggedInUserStates();
     return streamOfUser.map((user) => user != null);
   }
 
-  Stream<AppUser?> getLoggedInUser() {
-    final loggedInUserStream = loginFirebaseProvider.getLoggedInUserStates();
+  Stream<UserModel?> getLoggedInUser() {
+    final loggedInUserStream = loginProvider.getLoggedInUserStates();
     return loggedInUserStream.map((firebaseUser) {
       if (firebaseUser == null) {
         return null;
       } else {
-        return AppUser(
+        return UserModel(
           uid: firebaseUser.uid,
           displayName: firebaseUser.displayName ?? '',
           email: firebaseUser.email ?? '',
@@ -40,6 +40,6 @@ class LoginRepository {
   }
 
   Future<void> logOut() async {
-    await loginFirebaseProvider.logOut();
+    await loginProvider.logOut();
   }
 }

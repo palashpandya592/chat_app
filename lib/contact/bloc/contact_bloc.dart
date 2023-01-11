@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/repository/contact_repository.dart';
 import 'package:equatable/equatable.dart';
 

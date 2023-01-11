@@ -22,7 +22,7 @@ class ChatLoadFailure extends ChatState {
 }
 
 class ChatLoadSuccess extends ChatState {
-  final List<Conversation> chats;
+  final List<ConversationModel> chats;
 
   ChatLoadSuccess({required this.chats});
 

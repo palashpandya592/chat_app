@@ -8,7 +8,7 @@ class LoginWithGooglePressed extends LoginEvent {}
 class LoginVerified extends LoginEvent {}
 
 class LoginStateChanged extends LoginEvent {
-  final AppUser? user;
+  final UserModel? user;
 
   LoginStateChanged({this.user});
 }

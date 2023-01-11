@@ -1,9 +1,12 @@
+import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/utilities/app_assets.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class ChatView extends StatelessWidget {
-  ChatView({Key? key}) : super(key: key);
+  final UserModel authenticatedUser;
+
+  ChatView({Key? key, required this.authenticatedUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

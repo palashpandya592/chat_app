@@ -1,7 +1,7 @@
 import 'package:chatting_app/bottom/bloc/bottom_bloc.dart';
 import 'package:chatting_app/chat/chat_page.dart';
 import 'package:chatting_app/contact/contact_page.dart';
-import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/profile/profile_page.dart';
 import 'package:chatting_app/utilities/app_assets.dart';
 import 'package:chatting_app/utilities/app_colors.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomPage extends StatelessWidget {
-  final AppUser authenticatedUser;
+  final UserModel authenticatedUser;
 
   const BottomPage({Key? key, required this.authenticatedUser})
       : super(key: key);
@@ -25,7 +25,7 @@ class BottomPage extends StatelessWidget {
 }
 
 class BottomView extends StatefulWidget {
-  final AppUser authenticatedUser;
+  final UserModel authenticatedUser;
 
   const BottomView({Key? key, required this.authenticatedUser})
       : super(key: key);

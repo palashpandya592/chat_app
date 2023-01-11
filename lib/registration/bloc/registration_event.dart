@@ -18,7 +18,7 @@ class RegistrationDetailRequested extends RegistrationEvent {
 class RegistrationDetailUpdated extends RegistrationEvent {
   const RegistrationDetailUpdated({required this.user});
 
-  final AppUser user;
+  final UserModel user;
 
   @override
   List<Object> get props => [user];

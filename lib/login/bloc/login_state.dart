@@ -6,7 +6,7 @@ abstract class LoginState {}
 class LoginInitial extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final AppUser user;
+  final UserModel user;
 
   LoginSuccess({required this.user});
 }

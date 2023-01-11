@@ -1,26 +1,27 @@
 import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
-class AppUser extends Equatable {
+class UserModel extends Equatable {
   final String uid;
   final String displayName;
   final String email;
   final String photoUrl;
 
-  AppUser({
+  UserModel({
     required this.uid,
     required this.displayName,
     required this.email,
     required this.photoUrl,
   });
 
-  AppUser copyWith({
+  UserModel copyWith({
     String? uid,
     String? displayName,
     String? email,
     String? photoUrl,
   }) {
-    return AppUser(
+    return UserModel(
       uid: uid ?? this.uid,
       displayName: displayName ?? this.displayName,
       email: email ?? this.email,
@@ -37,8 +38,8 @@ class AppUser extends Equatable {
     };
   }
 
-  factory AppUser.fromMap(Map<String, dynamic> map) {
-    return AppUser(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
       uid: map['uid']?.toString() ?? '',
       displayName: map['displayName']?.toString() ?? '',
       email: map['email']?.toString() ?? '',
@@ -48,8 +49,8 @@ class AppUser extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory AppUser.fromJson(String source) =>
-      AppUser.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {

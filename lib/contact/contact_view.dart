@@ -1,12 +1,12 @@
 import 'package:chatting_app/contact/bloc/contact_bloc.dart';
-import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/conversation/conversation_page.dart';
+import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactView extends StatelessWidget {
-  final AppUser loginUser;
+  final UserModel loginUser;
 
   ContactView({Key? key, required this.loginUser}) : super(key: key);
 
@@ -30,53 +30,39 @@ class ContactView extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Expanded(
-                      child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .where('uid', isNotEqualTo: loginUser.uid)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.connectionState ==
-                              ConnectionState.active ||
-                          snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.hasError}');
-                        } else if (snapshot.hasData) {
-                          return ListView.builder(
-                            itemCount: snapshot.data?.docs.length,
-                            itemBuilder: (context, index) {
-                              dynamic user = snapshot.data?.docs[index];
-                              return Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: ListTile(
-                                  leading: CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage:
-                                          NetworkImage(user!['photoUrl'])),
-                                  title: Text(
-                                    user['displayName'],
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  subtitle: Text(
-                                    user['email'],
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          return Text(AppStrings.noUserFound);
-                        }
-                      } else {
-                        return Text('State: ${snapshot.connectionState}');
-                      }
+                      child: ListView.builder(
+                    itemCount: state.contacts.length,
+                    itemBuilder: (context, index) {
+                      var user = state.contacts[index];
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ConversationPage(
+                                    sender: loginUser, receiver: user),
+                              ),
+                            );
+                          },
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: NetworkImage(user.photoUrl),
+                            ),
+                            title: Text(
+                              user.displayName,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              user.email,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                      );
                     },
                   )),
                 ],

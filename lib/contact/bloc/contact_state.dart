@@ -18,7 +18,7 @@ class ContactLoadFailure extends ContactState {
 }
 
 class ContactLoadSuccess extends ContactState {
-  final List<AppUser> contacts;
+  final List<UserModel> contacts;
 
   const ContactLoadSuccess({required this.contacts});
 }

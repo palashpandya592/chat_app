@@ -13,7 +13,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -29,9 +31,7 @@ class MyApp extends StatelessWidget {
       home: BlocProvider(
         create: (context) => LoginBloc(
           loginRepository: LoginRepository(
-            loginFirebaseProvider: LoginFirebaseProvider(
-              firebaseAuth: FirebaseAuth.instance,
-            ),
+            loginProvider: LoginProvider(firebaseAuth: FirebaseAuth.instance),
           ),
         )..add(LoginVerified()),
         child: BlocBuilder<LoginBloc, LoginState>(
@@ -41,7 +41,9 @@ class MyApp extends StatelessWidget {
             } else if (state is LoginSuccess) {
               return RegistrationPage(authenticatedUser: state.user);
             } else if (state is LoginInProgress) {
-              return Scaffold(body: Center(child: CircularProgressIndicator()));
+              return Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
             }
             return Text(AppStrings.loginFailed);
           },

@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
-import 'package:chatting_app/model/app_user_model.dart';
+import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/repository/registration_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'registration_event.dart';
-
 part 'registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {

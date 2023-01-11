@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:chatting_app/chat/bloc/chat_event.dart';
 import 'package:chatting_app/chat/bloc/chat_state.dart';
@@ -16,7 +17,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       ChatRequested event, Emitter<ChatState> emit) async {
     try {
       emit(ChatLoadInProgress());
-    } catch (e) {
+      final chats = await chatRepository.getChats(loginUID: event.loginUID);
+      emit(ChatLoadSuccess(chats: chats));
+    } on Exception catch (e, trace) {
+      log('Loading chats $e $trace');
       emit(ChatLoadFailure(msg: 'Unable to Load message'));
     }
   }

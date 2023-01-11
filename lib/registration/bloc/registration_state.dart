@@ -10,13 +10,13 @@ abstract class RegistrationState extends Equatable {
 class RegistrationInitial extends RegistrationState {}
 
 class RegistrationUpdateSuccess extends RegistrationState {
-  final AppUser user;
+  final UserModel user;
 
   RegistrationUpdateSuccess({required this.user});
 }
 
 class RegistrationDetailRequestSuccess extends RegistrationState {
-  final AppUser user;
+  final UserModel user;
 
   RegistrationDetailRequestSuccess({required this.user});
 
