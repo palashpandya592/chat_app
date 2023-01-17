@@ -1,12 +1,9 @@
-import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/utilities/app_assets.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class ChatView extends StatelessWidget {
-  final UserModel authenticatedUser;
-
-  ChatView({Key? key, required this.authenticatedUser}) : super(key: key);
+  ChatView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +12,10 @@ class ChatView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           children: [
-            Text(AppStrings.chatPage,
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              AppStrings.chatPage,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 20),
             Expanded(
               child: ListView.builder(

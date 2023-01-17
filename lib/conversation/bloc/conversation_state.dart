@@ -23,3 +23,17 @@ class ConversationLoadFailure extends ConversationState {
 
   ConversationLoadFailure({required this.msg});
 }
+
+class ConversationCreationSuccess extends ConversationState {
+  final String conversationId;
+
+  ConversationCreationSuccess({required this.conversationId});
+}
+
+class ConversationCreationInProgress extends ConversationState {}
+
+class ConversationCreationFailure extends ConversationState {
+  final String msg;
+
+  ConversationCreationFailure({required this.msg});
+}

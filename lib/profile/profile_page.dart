@@ -29,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
+                backgroundColor: Colors.transparent,
                 backgroundImage: NetworkImage(profile.photoUrl),
                 radius: 70,
               ),

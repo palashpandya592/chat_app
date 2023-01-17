@@ -1,67 +1,54 @@
+import 'package:chatting_app/conversation/bloc/conversation_bloc.dart';
+import 'package:chatting_app/conversation/bloc/conversation_state.dart';
+import 'package:chatting_app/conversation/conversation_main_view.dart';
 import 'package:chatting_app/model/user_model.dart';
-import 'package:chatting_app/utilities/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConversationView extends StatelessWidget {
   final UserModel loginUser;
   final UserModel receiver;
 
-  const ConversationView(
-      {Key? key, required this.loginUser, required this.receiver})
+  ConversationView({Key? key, required this.loginUser, required this.receiver})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(receiver.displayName),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            color: Colors.red,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        appBar: AppBar(
+          title: Row(
             children: [
-              Expanded(
-                flex: 6,
-                child: Container(
-                  height: 45,
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(top: 5, left: 25),
-                        hintText: 'Message ${receiver.displayName}',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(right: 10),
-                  child: CircleAvatar(
-                    radius: 24,
-                    backgroundColor: AppColors.primary,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 3),
-                        child: Icon(Icons.send, size: 24, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              )
+              CircleAvatar(
+                  radius: 17,
+                  backgroundImage: NetworkImage(receiver.photoUrl),
+                  backgroundColor: Colors.transparent),
+              SizedBox(width: 10),
+              Text(receiver.displayName),
             ],
-          )
-        ],
-      ),
-    );
+          ),
+        ),
+        body: BlocBuilder<ConversationBloc, ConversationState>(
+          builder: (context, state) {
+            if (state is ConversationLoadSuccess) {
+              return ConversationMainView(
+                  loginUser: loginUser,
+                  receiver: receiver,
+                  conversationId: state.conversation.id ?? '');
+            } else if (state is ConversationCreationSuccess) {
+              return ConversationMainView(
+                loginUser: loginUser,
+                receiver: receiver,
+                conversationId: state.conversationId,
+              );
+            } else if (state is ConversationLoadInProgress ||
+                state is ConversationCreationInProgress) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is ConversationLoadFailure ||
+                state is ConversationCreationFailure) {
+              return Text('Unable to load conversation.');
+            }
+            return Text('${state.runtimeType}');
+          },
+        ));
   }
 }

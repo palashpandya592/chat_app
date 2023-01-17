@@ -1,4 +1,5 @@
 import 'package:chatting_app/conversation/bloc/conversation_bloc.dart';
+import 'package:chatting_app/conversation/bloc/conversation_event.dart';
 import 'package:chatting_app/conversation/conversation_view.dart';
 import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/provider/conversation_provider.dart';
@@ -27,7 +28,9 @@ class ConversationPage extends StatelessWidget {
           conversationProvider:
               ConversationProvider(firestore: FirebaseFirestore.instance),
         ),
-      ),
+      )..add(
+          ConversationDetailRequested(loginUser: sender, receiver: receiver),
+        ),
       child: ConversationView(loginUser: sender, receiver: receiver),
     );
   }

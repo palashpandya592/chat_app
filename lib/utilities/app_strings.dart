@@ -17,4 +17,8 @@ class AppStrings {
 
   // Chat Page
   static const chatPage = "Chat Page";
+  static const noChat = "No Chat";
+
+  // Conversation Message View
+  static const noMessage = "No Message";
 }

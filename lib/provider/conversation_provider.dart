@@ -22,4 +22,13 @@ class ConversationProvider {
     }
     return null;
   }
+
+  Future<String> createConversation(
+      {required Map<String, dynamic> conversation}) async {
+    final conversationRef =
+        await firestore.collection('conversations').add(conversation);
+
+    await conversationRef.update({'id': conversationRef.id});
+    return conversationRef.id;
+  }
 }

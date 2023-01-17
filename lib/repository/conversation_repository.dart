@@ -10,10 +10,19 @@ class ConversationRepository {
       {required String senderID, required String receiverID}) async {
     final conversationMap = await conversationProvider.getConversationId(
         senderID: senderID, receiverID: receiverID);
+
     if (conversationMap == null) {
       return null;
     } else {
       return ConversationModel.fromMap(conversationMap);
     }
+  }
+
+  Future<String> createConversation(
+      {required ConversationModel conversationModel}) async {
+    final conversationId = await conversationProvider.createConversation(
+      conversation: conversationModel.toMap(),
+    );
+    return conversationId;
   }
 }
