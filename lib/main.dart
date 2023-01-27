@@ -4,8 +4,9 @@ import 'package:chatting_app/login/login_page.dart';
 import 'package:chatting_app/provider/login_provider.dart';
 import 'package:chatting_app/registration/registration_page.dart';
 import 'package:chatting_app/repository/login_repository.dart';
+import 'package:chatting_app/theme/app_theme.dart';
+import 'package:chatting_app/theme/cubit/theme_cubit.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
-import 'package:chatting_app/utilities/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeCubit()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,8 +32,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeCubit theme = BlocProvider.of<ThemeCubit>(context, listen: true);
+
     return MaterialApp(
-      theme: appTheme,
+      theme: theme.isDark ? ThemeData.dark() : lightTheme,
       debugShowCheckedModeBanner: false,
       title: AppStrings.chattingApp,
       home: BlocProvider(

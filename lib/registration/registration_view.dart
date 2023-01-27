@@ -1,13 +1,13 @@
-import 'package:chatting_app/bottom/bottom_page.dart';
-import 'package:chatting_app/model/user_model.dart';
-import 'package:chatting_app/registration/bloc/registration_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:chatting_app/model/user_model.dart';
+import 'package:chatting_app/bottom/bottom_page.dart';
+import 'package:chatting_app/registration/bloc/registration_bloc.dart';
 
 class RegistrationView extends StatelessWidget {
   final UserModel authenticatedUser;
 
-  const RegistrationView({Key? key, required this.authenticatedUser})
+  RegistrationView({Key? key, required this.authenticatedUser})
       : super(key: key);
 
   @override

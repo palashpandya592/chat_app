@@ -23,7 +23,7 @@ class ChatPage extends StatelessWidget {
       )..add(
           ChatRequested(loginUID: authenticatedUser.uid),
         ),
-      child: ChatView(),
+      child: ChatView(authenticatedUser: authenticatedUser),
     );
   }
 }

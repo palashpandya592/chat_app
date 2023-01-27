@@ -6,7 +6,10 @@ class MessageProvider {
   MessageProvider({required this.firestore});
 
   Future<void> addMessage({required Map<String, dynamic> messageMap}) async {
-    await firestore.collection('messages').add(messageMap);
+    await firestore
+        .collection('messages')
+        .add(messageMap)
+        .then((value) => print(value.id));
   }
 
   Stream<List<Map<String, dynamic>?>> getMessages({

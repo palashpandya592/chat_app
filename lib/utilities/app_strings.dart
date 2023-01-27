@@ -19,6 +19,15 @@ class AppStrings {
   static const chatPage = "Chat Page";
   static const noChat = "No Chat";
 
+  // Chat View
+  static const unableToLoadChats = "Unable to load chats";
+
   // Conversation Message View
-  static const noMessage = "No Message";
+  static const unableToFetchMessage = "Unable to fetch Message";
+
+  // Conversation View
+  static const unableToLoadConversation = "Unable to load conversation.";
+
+  // Conversation Message View
+  static const noMessage = "Say Hii! 👋";
 }

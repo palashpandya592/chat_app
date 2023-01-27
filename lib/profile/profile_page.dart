@@ -1,50 +1,73 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: must_be_immutable
+
 import 'package:chatting_app/login/bloc/login_bloc.dart';
 import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/utilities/app_colors.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
+import 'package:chatting_app/widget/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   final UserModel authenticatedUser;
 
-  const ProfilePage({Key? key, required this.authenticatedUser})
-      : super(key: key);
+  ProfilePage({Key? key, required this.authenticatedUser}) : super(key: key);
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    var profile = widget.authenticatedUser;
+    nameController.text = authenticatedUser.displayName;
+    emailController.text = authenticatedUser.email;
 
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+        body: Column(
+      children: [
+        Expanded(
+          child: Stack(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: NetworkImage(profile.photoUrl),
-                radius: 70,
+              Container(
+                height: 220,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(.7),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  ),
+                ),
               ),
-              SizedBox(height: 50),
-              Text(
-                profile.displayName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              Padding(
+                padding: EdgeInsets.only(top: 120),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: NetworkImage(authenticatedUser.photoUrl),
+                    radius: 60,
+                  ),
+                ),
               ),
-              SizedBox(height: 6),
-              Text(
-                profile.email,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: AppColors.black),
+            ],
+          ),
+        ),
+        Expanded(
+            child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              textInputField(
+                readOnly: true,
+                controllers: nameController,
+                icon: Icons.person,
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
+              textInputField(
+                readOnly: true,
+                controllers: emailController,
+                icon: Icons.person,
+              ),
+              SizedBox(height: 40),
               ElevatedButton.icon(
                 onPressed: () {
                   BlocProvider.of<LoginBloc>(context).add(LoginRemoved());
@@ -59,8 +82,52 @@ class _ProfilePageState extends State<ProfilePage> {
               )
             ],
           ),
-        ),
-      ),
-    );
+        ))
+      ],
+    )
+
+        // Center(
+        //   child: Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+        //     child: SingleChildScrollView(
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [
+        //           CircleAvatar(
+        //             backgroundColor: Colors.transparent,
+        //             backgroundImage: NetworkImage(authenticatedUser.photoUrl),
+        //             radius: 60,
+        //           ),
+        //           SizedBox(height: 50),
+        //           textInputField(
+        //             readOnly: true,
+        //             controllers: nameController,
+        //             icon: Icons.person,
+        //           ),
+        //           SizedBox(height: 20),
+        //           textInputField(
+        //             readOnly: true,
+        //             controllers: emailController,
+        //             icon: Icons.email,
+        //           ),
+        //           SizedBox(height: 50),
+        //           ElevatedButton.icon(
+        //             onPressed: () {
+        //               BlocProvider.of<LoginBloc>(context).add(LoginRemoved());
+        //             },
+        //             icon: Icon(Icons.logout),
+        //             label: Text(AppStrings.logOut),
+        //             style: ElevatedButton.styleFrom(
+        //               padding: EdgeInsets.symmetric(horizontal: 23, vertical: 11),
+        //               backgroundColor: AppColors.primary,
+        //               elevation: 0,
+        //             ),
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        );
   }
 }

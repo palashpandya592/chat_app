@@ -3,6 +3,7 @@ import 'package:chatting_app/chat/chat_page.dart';
 import 'package:chatting_app/contact/contact_page.dart';
 import 'package:chatting_app/model/user_model.dart';
 import 'package:chatting_app/profile/profile_page.dart';
+import 'package:chatting_app/theme/cubit/theme_cubit.dart';
 import 'package:chatting_app/utilities/app_assets.dart';
 import 'package:chatting_app/utilities/app_colors.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
@@ -12,8 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BottomPage extends StatelessWidget {
   final UserModel authenticatedUser;
 
-  const BottomPage({Key? key, required this.authenticatedUser})
-      : super(key: key);
+  BottomPage({Key? key, required this.authenticatedUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,7 @@ class BottomPage extends StatelessWidget {
 class BottomView extends StatefulWidget {
   final UserModel authenticatedUser;
 
-  const BottomView({Key? key, required this.authenticatedUser})
-      : super(key: key);
+  BottomView({Key? key, required this.authenticatedUser}) : super(key: key);
 
   @override
   State<BottomView> createState() => _BottomViewState();
@@ -39,10 +38,22 @@ class _BottomViewState extends State<BottomView> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeCubit theme = BlocProvider.of<ThemeCubit>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppStrings.chattingApp),
+        actions: [
+          IconButton(
+            onPressed: () {
+              theme.changeTheme();
+            },
+            icon: theme.isDark
+                ? Icon(Icons.dark_mode_outlined)
+                : Icon(Icons.light_mode_outlined),
+          ),
+        ],
       ),
       body: BlocBuilder<BottomBloc, BottomState>(
         builder: (context, state) {

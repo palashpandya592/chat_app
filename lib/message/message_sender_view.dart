@@ -52,7 +52,7 @@ class _ConversationSenderViewState extends State<ConversationSenderView> {
             child: TextFormField(
               controller: messageTextController,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: 5, left: 20),
+                contentPadding: EdgeInsets.only(top: 5, left: 20, right: 20),
                 hintText: 'Message ${widget.receiverName}',
                 hintStyle: TextStyle(fontSize: 12, color: AppColors.black),
                 border:
@@ -64,9 +64,7 @@ class _ConversationSenderViewState extends State<ConversationSenderView> {
         Expanded(
           child: BlocConsumer<MessageSenderBloc, MessageSenderState>(
             listener: (context, state) {
-              if (state is MessageSendSuccess) {
-                setState(messageTextController.clear);
-              }
+              if (state is MessageSendSuccess) {}
             },
             builder: (context, state) {
               if (state is MessageSendInProgress) {
@@ -94,12 +92,11 @@ class _ConversationSenderViewState extends State<ConversationSenderView> {
                                   conversationId: widget.conversationId ?? '',
                                   senderUID: widget.senderUID,
                                   receiverUID: widget.receiverUID,
-                                  timeStamp: DateTime.now()
-                                      .millisecondsSinceEpoch
-                                      .toString(),
+                                  timeStamp: DateTime.now().toString(),
                                 ),
                               ),
                             );
+                            messageTextController.clear();
                           }
                         },
                       ),

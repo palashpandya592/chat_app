@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RegistrationPage extends StatelessWidget {
   final UserModel authenticatedUser;
 
-  const RegistrationPage({Key? key, required this.authenticatedUser})
+  RegistrationPage({Key? key, required this.authenticatedUser})
       : super(key: key);
 
   @override

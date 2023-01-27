@@ -15,7 +15,7 @@ class ConversationMainView extends StatelessWidget {
   final UserModel receiver;
   final String conversationId;
 
-  const ConversationMainView({
+  ConversationMainView({
     Key? key,
     required this.loginUser,
     required this.receiver,

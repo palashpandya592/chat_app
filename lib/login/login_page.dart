@@ -1,4 +1,5 @@
 import 'package:chatting_app/login/bloc/login_bloc.dart';
+import 'package:chatting_app/theme/cubit/theme_cubit.dart';
 import 'package:chatting_app/utilities/app_assets.dart';
 import 'package:chatting_app/utilities/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    ThemeCubit theme = BlocProvider.of<ThemeCubit>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(AppStrings.loginPage),
+        actions: [
+          IconButton(
+            onPressed: () {
+              theme.changeTheme();
+              print(theme);
+            },
+            icon: theme.isDark
+                ? Icon(Icons.dark_mode_outlined)
+                : Icon(Icons.light_mode_outlined),
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 30),

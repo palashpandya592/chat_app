@@ -7,6 +7,7 @@ import 'package:chatting_app/repository/message_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'message_receiver_event.dart';
+
 part 'message_receiver_state.dart';
 
 class MessageReceiverBloc
@@ -27,11 +28,10 @@ class MessageReceiverBloc
   }
 
   FutureOr<void> _onMessageRequestedToState(
-    MessageRequested event,
-    Emitter<MessageReceiverState> emit,
-  ) {
+      MessageRequested event, Emitter<MessageReceiverState> emit) {
     try {
       emit(MessageLoadInProgress());
+
       messageStream = messageRepository
           .getMessages(conversationId: event.conversationId)
           .listen((messages) {
@@ -39,14 +39,13 @@ class MessageReceiverBloc
       });
     } on Exception catch (e, trace) {
       log('Issue while loading message $e $trace');
+
       emit(MessageLoadFailure(msg: e.toString()));
     }
   }
 
   FutureOr<void> _onMessageReceivedToState(
-    MessageReceived event,
-    Emitter<MessageReceiverState> emit,
-  ) {
+      MessageReceived event, Emitter<MessageReceiverState> emit) {
     emit(MessageLoadSuccess(messageModel: event.messageModel));
   }
 }

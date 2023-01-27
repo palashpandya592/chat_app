@@ -2,6 +2,7 @@ import 'package:chatting_app/conversation/bloc/conversation_bloc.dart';
 import 'package:chatting_app/conversation/bloc/conversation_state.dart';
 import 'package:chatting_app/conversation/conversation_main_view.dart';
 import 'package:chatting_app/model/user_model.dart';
+import 'package:chatting_app/utilities/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +46,7 @@ class ConversationView extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             } else if (state is ConversationLoadFailure ||
                 state is ConversationCreationFailure) {
-              return Text('Unable to load conversation.');
+              return Text(AppStrings.unableToLoadConversation);
             }
             return Text('${state.runtimeType}');
           },
